@@ -1,0 +1,39 @@
+.mycarousel {
+    background-color: #fcdb00;
+    padding: 20px 0;
+    box-shadow: -5px 5px whitesmoke;
+    border-radius: 5px;
+}
+
+.tablet {
+    width:317px;
+    height: 470px;
+    border-radius: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tablet__screen {
+    width: 290px;
+    height: 385px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+@media screen and (max-device-width: 480px) {
+    .tablet {
+        width:300px;
+        height: 200px;
+        border-radius: 5px;
+    }
+
+    .tablet__screen {
+        width: 250px;
+        height: 185px;
+    }
+}

@@ -1,0 +1,14 @@
+.timelist-item {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+    box-shadow: -3px 3px #f5f5f5;
+    transition: 0.5s all;
+    user-select: none;
+}
+
+.timelist-item:hover, .timelist-item-selected {
+    background-color: rgb(252, 219, 0);
+}

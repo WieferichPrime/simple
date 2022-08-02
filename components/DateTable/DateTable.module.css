@@ -1,0 +1,45 @@
+.date_table {
+    width:95%;
+}
+
+.table {
+    width: 100%;
+}
+
+.body {
+    background-color: none;
+}
+
+.cell {
+    border-style: none !important;
+}
+
+.day {
+    width:35px;
+}
+
+.arrow {
+    width: 75%;
+    height: 75%;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+
+.arrow:hover {
+    color: black;
+}
+
+.table_label {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+@media screen and (max-device-width: 480px) {
+    .table_label {
+        font-size: 14px;
+    }
+    .arrow {
+        color: black;
+    }
+}

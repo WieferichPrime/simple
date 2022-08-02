@@ -1,0 +1,24 @@
+.nav_link, .btn {
+    color: black !important;
+    transition:transform 0.25s;
+    will-change: transform;
+    &_active {
+        background-color: #fcdb00 !important;
+    }
+}
+
+.btn {
+    background-color: #fcdb00 !important;
+    width: 100%;
+}
+
+.nav_link:hover,.btn:hover {
+    transform: translateY(-5px);
+}
+
+@media screen and (max-device-width: 480px) {
+    .logo {
+        margin-bottom: 10px;
+    }
+}
+

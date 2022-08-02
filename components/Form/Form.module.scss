@@ -1,0 +1,36 @@
+.form {
+    padding: 10px 20px;
+    box-shadow: -5px 5px whitesmoke;
+    background-color: rgb(252, 219, 0);
+    animation: fadeInFromNone 0.5s ease-in;
+    margin: 0 auto;
+    .btn {
+        color:white;
+        margin-top: 20px;
+        background-color: black;
+        transition: 0.5s all;
+    }
+    
+    .btn:hover {
+        color:white;
+        transform: translateY(-5px);
+    }
+}
+
+
+
+@keyframes fadeInFromNone {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-device-width: 480px) {
+    .logo {
+        margin-bottom: 10px;
+    }
+}

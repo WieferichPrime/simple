@@ -1,0 +1,37 @@
+.slider {
+    overflow: hidden;
+    user-select: none;
+}
+
+.slider_item {
+    width:100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slider_inner {
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.slider_radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    border: 5px solid whitesmoke;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.slider_radio_active {
+    background-color: #fcdb00;
+}
+
+.slider_radio_list {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
