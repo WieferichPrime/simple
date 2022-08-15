@@ -4,10 +4,10 @@ import { json } from "sequelize";
 
 class RecordController {
     async create(req, res) {
-        const {name, phone, email, date} = req.body;
+        const {name, phone, email, date, time} = req.body;
             
             if (name.length < 2) return res.status(400).json("Короткое имя");
-            RecordService.create({name, phone, email, date: date?new Date(date).toISOString():new Date().toISOString()})
+            RecordService.create({name, phone, email, date: date?new Date(date).toISOString():new Date().toISOString(), time})
                 .then((record) => {
                     res.status(200).json(record);
                 })
@@ -17,6 +17,13 @@ class RecordController {
     async getAll(req, res) {
         await RecordService.getAll()
             .then((records) => res.json(records))
+            .catch(e => res.status(500).json(e))
+    }
+
+    async getTimesByDate(req, res) {
+        const {date} = req.body;
+        await RecordService.getTimesByDate(date)
+            .then((times) => res.json(times))
             .catch(e => res.status(500).json(e))
     }
 

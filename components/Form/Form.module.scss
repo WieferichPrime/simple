@@ -3,9 +3,11 @@
     box-shadow: -5px 5px whitesmoke;
     background-color: rgb(252, 219, 0);
     animation: fadeInFromNone 0.5s ease-in;
+    border-radius: 5px;
     margin: 0 auto;
     .btn {
         color:white;
+        min-width: 200px;
         margin-top: 20px;
         background-color: black;
         transition: 0.5s all;
@@ -17,7 +19,10 @@
     }
 }
 
-
+.spinner {
+    color: white;
+    justify-content: end;
+}
 
 @keyframes fadeInFromNone {
     from {

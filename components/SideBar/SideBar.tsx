@@ -1,15 +1,13 @@
+import styles from './SideBar.module.css';
 
-const SideBar = () => {
+const SideBar = ({header, children}) => {
     return (
-        <div className="sidebar" hidden>
-            <h3>Available Time</h3>
-            <ul className="list-groupd">
-                <li className="list-group-item active" aria-current="true">00:00</li>
-                <li className="list-group-item">00:00</li>
-                <li className="list-group-item">00:00</li>
-                <li className="list-group-item">00:00</li>
-                <li className="list-group-item">00:00</li>
-            </ul>
+        <div className={"d-flex flex-column flex-shrink-0 p-3 bg-light " + styles.sidebar} >
+            <a href="/" className="d-flex align-items-center mb-3 me-md-auto link-dark text-decoration-none">
+            <svg className="bi pe-none me-2" width="40" height="32"></svg>
+            <span className="fs-5">{header}</span>
+            </a>
+            {children}
         </div>
     )
 };

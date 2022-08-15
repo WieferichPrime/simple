@@ -4,7 +4,8 @@ import { changeEmail, changePhone, Time } from '../../redux/actions';
 import isEmail from 'validator/es/lib/isEmail';
 import isMobilePhone from 'validator/es/lib/isMobilePhone';
 import styles from './Form.module.scss';
-import RecordController from '../../Controllers/RecordController.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch, faCheck, faX } from '@fortawesome/free-solid-svg-icons';
 
 interface InputProps {
     label: string;
@@ -20,7 +21,7 @@ interface InputProps {
 
 interface FormProps {
     date: Date;
-    time: Time
+    time: string
 }
 
 const Input = ({label, type, name, id, placeholder, required, handlerValue, onFocus = () => {}, value}: InputProps) => {
@@ -46,8 +47,8 @@ const Form = ({date, time}:FormProps) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [success, setSuccess] = useState(false);
-    const [unsuccess, setUnSuccess] = useState(false);
+    const [success, setSuccess] = useState();
+    const [submited, setSubmited] = useState(false);
     const dispatch = useDispatch();
     const handlerEmail = useCallback((email: string) => {
         setEmail(email);
@@ -63,31 +64,19 @@ const Form = ({date, time}:FormProps) => {
         setName(name);
     });
 
-    const getDateTime = () => {
-        const dateTime = new Date(date)
-        dateTime.setHours(time.hours);
-        dateTime.setMinutes(time.minutes);
-        dateTime.setSeconds(0);
-        return dateTime.toString();
-    }
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        setSubmited(true);
         fetch('/api/record', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({name, email, phone, date: getDateTime()})
+            body: JSON.stringify({name, email, phone, date, time})
         })
         .then((res) => {
-            if (res.status !== 200) {
-                setSuccess(false);
-                setUnSuccess(true);
-            } else {
-                setSuccess(true);
-                setUnSuccess(false);
-            }
+            setSuccess(res.status === 200);
+            setSubmited(false);
         } )
         .catch(e => {
             console.log(e);
@@ -95,16 +84,7 @@ const Form = ({date, time}:FormProps) => {
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
-            {
-                (success && !unsuccess)?<span>"Успешно"</span>
-                :null
-            }
-            {
-                (unsuccess && !success)?<span>"Что-то пошлоо не так, попробуйте еще раз"</span>
-                :null
-            }
-            
+        <form onSubmit={(e) => handleSubmit(e)} className={styles.form + ' ' + styles.form_success}>
             <div className="mb-3">
                 <Input 
                 handlerValue={handlerName} 
@@ -142,10 +122,20 @@ const Form = ({date, time}:FormProps) => {
             <button 
             type="submit" 
             className={["btn", "align-self-center", styles.btn].join(' ')}
-            >{`
-            Записаться на ${date.toLocaleDateString()} 
-            ${time.hours}:${time.minutes>10?time.minutes:'0'+time.minutes}
-            `}</button>
+            >
+            {
+                !submited?
+                "Записаться"
+                :
+                (success === undefined)?
+                <FontAwesomeIcon  icon = {faCircleNotch} className={`fa-spin ${styles.spinner}`} size='2x'/>
+                :
+                success?
+                <span><FontAwesomeIcon icon = {faCheck}></FontAwesomeIcon> Успешно</span>
+                :
+                <span>Проверьте исходные данные</span>
+            }
+            </button>
         </form>
     );
 }

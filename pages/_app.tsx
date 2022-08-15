@@ -1,10 +1,12 @@
 import App from "next/app";
 import React from "react";
+import { useEffect } from "react";
 import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import store from "../redux/store";
 import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '/styles/global.css';
+
 // export default function App({ Component, pageProps }) {
 //     return <Component {...pageProps} />;
 // }
@@ -12,15 +14,17 @@ import '/styles/global.css';
 class MyApp extends App {
     static async getInitialProps({Component, ctx}) {
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
-
         //Anything returned here can be access by the client
         return {pageProps: pageProps};
+    }
+
+    componentDidMount() {
+        import("../node_modules/bootstrap/dist/js/bootstrap.bundle.js");
     }
 
     render() {
         //Information that was returned  from 'getInitialProps' are stored in the props i.e. pageProps
         const {Component, pageProps} = this.props;
-
         return (
             <Provider store={store}>
                 <Component {...pageProps}/>
@@ -28,6 +32,7 @@ class MyApp extends App {
         );
     }
 }
+
 
 //makeStore function that returns a new store for every request
 const makeStore = () => store;

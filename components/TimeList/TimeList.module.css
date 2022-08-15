@@ -1,3 +1,7 @@
+.spinner {
+    color: lightgrey;
+}
+
 @media screen and (max-device-width: 480px){
     .arrow {
         transform: rotate(-90deg);

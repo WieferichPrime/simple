@@ -36,8 +36,6 @@ const Header = () => {
                 <div className="col-xl-1"></div>
                 <div className="col-xl-3 col">
                     <div className="row mt-5">
-                        <div className="col-xl-12 col-6"><button className={[styles.btn, 'btn'].join(' ')}>Регистрация</button></div>
-                        <div className="col-xl-12 col-6"><button className={[styles.btn, 'btn'].join(' ')}>Войти</button></div>
                     </div>
                 </div>
             </div>

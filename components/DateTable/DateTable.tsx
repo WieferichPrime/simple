@@ -21,6 +21,8 @@ const DateTable = ({month, monthName, next, prev}:Prop) => {
     date.setDate(1);
     const extraCells:JSX.Element[] = [];
 
+    
+
     for (let i = 0; i < (date.getDay() + 6) % 7; i++) {
         allCells.push({date: null, active: false});
     }

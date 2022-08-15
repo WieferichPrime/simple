@@ -8,7 +8,6 @@ interface Props {
     date: Date|null;
 }
 
-
 const DateItem = ({active, date}:Props) => {
     const dispatch = useDispatch();
 	const selectedDate = useSelector((state:any) => state.date);

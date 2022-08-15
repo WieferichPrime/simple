@@ -9,6 +9,15 @@ class RecordService {
         return await Record.findAll()
     }
 
+    async getTimesByDate(date) {
+        return await Record.findAll({
+            attributes: ['time'],
+            where: {
+                date: date
+            }
+        })
+    }
+
     async getOne(id) {
         return await Record.findByPk(id)
     }

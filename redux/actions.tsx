@@ -1,9 +1,4 @@
-import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME} from './types'
-
-export interface Time {
-  hours: number;
-  minutes: number;
-}
+import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME, CHANGE_UNAVAILABLE_TIME} from './types'
 
 export function changeDate(newDate:Date|string) {
   return {
@@ -12,11 +7,18 @@ export function changeDate(newDate:Date|string) {
   }
 }
 
-export function changeTime(newTime:Time|string) {
+export function changeTime(newTime:string) {
     return {
       type: CHANGE_TIME,
       payload: newTime
     }
+}
+
+export function changeUnavailableTime(newTimes:string[]) {
+  return {
+    type: CHANGE_UNAVAILABLE_TIME,
+    payload: newTimes
+  }
 }
 
 export function changeEmail(newEmail:string) {

@@ -25,11 +25,24 @@ const Record = connection.define("Record",
             type: DataTypes.TEXT('tiny')
         },
         date: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
+        },
+        time: {
+            type: DataTypes.TIME,
+            allowNull: false,
+            get() {
+                return this.getDataValue('time').slice(0,5);
+            }
         }
     },
     {
+        indexes: [
+            {
+                unique: true,
+                fields: ['date', 'time']
+            }
+        ],
         tableName: 'Records'
     }
 );
