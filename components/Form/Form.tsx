@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeEmail, changePhone, Time } from '../../redux/actions';
+import { changeEmail, changePhone } from '../../redux/actions';
 import isEmail from 'validator/es/lib/isEmail';
 import isMobilePhone from 'validator/es/lib/isMobilePhone';
 import styles from './Form.module.scss';
@@ -16,15 +16,17 @@ interface InputProps {
     value?: string;
     placeholder?: string;
     handlerValue: (value:string) => void;
+    handler: (value:string) => void;
     onFocus?: (e:any) => void;
 }
 
 interface FormProps {
-    date: Date;
-    time: string
+    date: string;
+    time: string;
+    successHandler: (value:boolean) => void;
 }
 
-const Input = ({label, type, name, id, placeholder, required, handlerValue, onFocus = () => {}, value}: InputProps) => {
+const Input = ({label, type, name, id, placeholder, required, handlerValue, onFocus, handler}: InputProps) => {
     return (
         <>
             <label htmlFor={id} className="form-label">{label}</label>
@@ -34,22 +36,22 @@ const Input = ({label, type, name, id, placeholder, required, handlerValue, onFo
             className="form-control shadow-none" 
             id={id}
             placeholder={placeholder}
-            onChange={(e) => handlerValue(e.target.value)}
-            value={value}
-            onFocus={(e) => onFocus(e)}
+            onBlur={(e) => handlerValue(e.target.value)}
+            onChange={(e) => handler(e.target.value)}
+            onFocus={(e) => onFocus?onFocus(e):null}
             required= {required}
             />
         </>
     )
 }
 
-const Form = ({date, time}:FormProps) => {
+const Form = ({date, time, successHandler}:FormProps) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [success, setSuccess] = useState();
     const [submited, setSubmited] = useState(false);
     const dispatch = useDispatch();
+
     const handlerEmail = useCallback((email: string) => {
         setEmail(email);
         dispatch(changeEmail(email));
@@ -75,7 +77,7 @@ const Form = ({date, time}:FormProps) => {
             body: JSON.stringify({name, email, phone, date, time})
         })
         .then((res) => {
-            setSuccess(res.status === 200);
+            successHandler(res.status === 200);
             setSubmited(false);
         } )
         .catch(e => {
@@ -87,7 +89,8 @@ const Form = ({date, time}:FormProps) => {
         <form onSubmit={(e) => handleSubmit(e)} className={styles.form + ' ' + styles.form_success}>
             <div className="mb-3">
                 <Input 
-                handlerValue={handlerName} 
+                handlerValue={handlerName}
+                handler = {setName}
                 label='Ваше имя' 
                 type='text' 
                 required={true}
@@ -98,44 +101,37 @@ const Form = ({date, time}:FormProps) => {
             <div className="mb-3">
                 <Input 
                 handlerValue={handlerEmail} 
+                handler = {setEmail}
                 label='Адрес электронной почты' 
                 type='email' 
                 required={true}
                 name='email'
                 id='email' 
-                value={useSelector((state:any) => state.email) || ''}
+                value={email}
                 ></Input>
             </div>
             <div className="mb-3">
                 <Input 
                 handlerValue={handlerPhone} 
+                handler = {setPhone}
                 label='Номер мобильного телефона' 
                 type='tel' 
                 required={true}
                 name='phone'
                 id='tel' 
                 placeholder='+7'
-                value={useSelector((state:any) => state.phone) || ''}
+                value={phone}
                 onFocus={(e) => e.target.value?null:e.target.value = '+7'}
                 ></Input>
             </div>
-            <button 
-            type="submit" 
-            className={["btn", "align-self-center", styles.btn].join(' ')}
-            >
             {
-                !submited?
-                "Записаться"
-                :
-                (success === undefined)?
-                <FontAwesomeIcon  icon = {faCircleNotch} className={`fa-spin ${styles.spinner}`} size='2x'/>
-                :
-                success?
-                <span><FontAwesomeIcon icon = {faCheck}></FontAwesomeIcon> Успешно</span>
-                :
-                <span>Проверьте исходные данные</span>
+            (submited)?
+            <FontAwesomeIcon  icon = {faCircleNotch} className={`fa-spin ${styles.spinner}`} size='2x'/>
+            :<button 
+            type="submit" 
+            className="btn btn-dark align-self-center"
+            >Записаться</button>
             }
-            </button>
         </form>
     );
 }

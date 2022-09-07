@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME, CHANGE_UNAVAILABLE_TIME} from './types'
+import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME, CHANGE_UNAVAILABLE_TIME, CHANGE_USER} from './types'
 
 interface Action {
     type: string;
@@ -20,8 +20,8 @@ function timeReducer(state='', action: Action) {
     return state
 }
 
-function unavailableTimeReducer(state='', action: Action) {
-    if (action.type === CHANGE_UNAVAILABLE_TIME) {
+function userReducer(state=null, action: Action) {
+    if (action.type === CHANGE_USER) {
         return action.payload;
     } 
     return state
@@ -45,5 +45,6 @@ export const rootReducer = combineReducers({
   date: dateReducer,
   time: timeReducer,
   email: emailReducer,
-  phone: phoneReducer
+  phone: phoneReducer,
+  user: userReducer
 })

@@ -28,10 +28,10 @@ const DateTable = ({month, monthName, next, prev}:Prop) => {
     }
 
     while (date.getMonth() === month) {
-        if ((date < today) && (today.toDateString() !== date.toDateString())) {
-            allCells.push({date: new Date(date), active: false});
+        if ((date < today) && (today.toDateString() !== date.toDateString()) || date.getDay() === 0 || date.getDay() === 6) {
+            allCells.push({date: 'date', active: false, day: date.getDate()});
         }  else {
-            allCells.push({date: new Date(date), active: true});
+            allCells.push({date: `${date.getFullYear()}-${(date.getMonth() < 9)?'0':''}${date.getMonth() + 1}-${(date.getDate() < 10)?'0':''}${date.getDate()}`, active: true, day: date.getDate()});
         }
         date.setDate(date.getDate() + 1);
     }
@@ -47,7 +47,7 @@ const DateTable = ({month, monthName, next, prev}:Prop) => {
     const labels = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
     return (
         <div className={styles.date_table}>
-            <div className='row'>
+            <div className={`row ${styles.head}`}>
                 <div className='col-2 col-xl-1 d-flex align-items-center'><FontAwesomeIcon 
                 icon = {faLessThan} 
                 className={styles.arrow} 
@@ -70,6 +70,7 @@ const DateTable = ({month, monthName, next, prev}:Prop) => {
                                     week.map( cell => <td className={`${styles.cell}`}><DateItem 
                                         date={cell.date} 
                                         active={cell.active}
+                                        day = {cell.day}
                                         ></DateItem></td>)
                                     }
                                     {(week.length % 7)?extraCells:null}</tr>

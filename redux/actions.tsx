@@ -1,6 +1,6 @@
-import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME, CHANGE_UNAVAILABLE_TIME} from './types'
+import {CHANGE_DATE, CHANGE_EMAIL, CHANGE_PHONE, CHANGE_TIME, CHANGE_UNAVAILABLE_TIME, CHANGE_USER} from './types'
 
-export function changeDate(newDate:Date|string) {
+export function changeDate(newDate:string) {
   return {
     type: CHANGE_DATE,
     payload: newDate
@@ -14,10 +14,10 @@ export function changeTime(newTime:string) {
     }
 }
 
-export function changeUnavailableTime(newTimes:string[]) {
+export function changeUser(newUser:any) {
   return {
-    type: CHANGE_UNAVAILABLE_TIME,
-    payload: newTimes
+    type: CHANGE_USER,
+    payload: newUser
   }
 }
 

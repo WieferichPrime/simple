@@ -6,90 +6,96 @@ $x3: calc($x1 * 2);
 $x4: calc($x1 * 40 / 60);
 $x5: calc($x1 * 125 / 60);
 
-
-.circle_border {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  margin: 0 auto;
+.item {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+	border-radius: 100%;
+	&_prev {
+		opacity: 0.5;
+	}
 }
 
-.item {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  cursor: pointer;
-
-  background: none;
-  border: 0;
-  box-sizing: border-box;
-  
-  // Using inset box-shadow instead of border for sizing simplicity
-  border-radius: 100%;
-  font-size: inherit;
-  font-weight: 700;
-
-  // Required, since we're setting absolute on pseudo-elements
-  position: relative;
-  vertical-align: middle;
-
-  &::before,
-  &::after {
-    box-sizing: inherit;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
+@media screen and (min-device-width: 769px) {
+  .circle_border {
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
+    margin: 0 auto;
   }
   
-  &:hover {
-    color: $border-color;
-  }
+  .item {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    
+    // Using inset box-shadow instead of border for sizing simplicity
+    
+    font-size: inherit;
+    font-weight: 700;
+  
+    // Required, since we're setting absolute on pseudo-elements
+    position: relative;
+    vertical-align: middle;
+  
+    &::before,
+    &::after {
+      box-sizing: inherit;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+    }
+    
+    &:hover {
+      color: $border-color;
+    }
+  
+    &::before,
+    &::after {
+      top: 0;
+      left: 0;
+    }
+  
+    &::before {
+      border: 2px solid transparent; // We're animating border-color again
+    }
+  
+    &:hover::before {
+      border-top-color: $border-color; // Show borders
+      border-right-color: $border-color;
+      border-bottom-color: $border-color;
+  
+      transition:
+        border-top-color 0.1s linear, // Stagger border appearances
+        border-right-color 0.1s linear 0.05s,
+        border-bottom-color 0.1s linear 0.1s;
+    }
+  
+    &::after {
+      border: 0 solid transparent; // Makes border thinner at the edges? I forgot what I was doing
+    }
+  
+    &:hover::after {
+      border-top: 2px solid $border-color; // Shows border
+      border-left-width: 2px; // Solid edges, invisible borders
+      border-right-width: 2px; // Solid edges, invisible borders
+      transform: rotate(270deg); // Rotate around circle
+      transition:
+        transform 0.2s linear 0s,
+        border-left-width 0s linear 0.15s; // Solid edge post-rotation
+    }
 
-  &::before,
-  &::after {
-    top: 0;
-    left: 0;
-  }
-
-  &::before {
-    border: 2px solid transparent; // We're animating border-color again
-  }
-
-  &:hover::before {
-    border-top-color: $border-color; // Show borders
-    border-right-color: $border-color;
-    border-bottom-color: $border-color;
-
-    transition:
-      border-top-color 0.1s linear, // Stagger border appearances
-      border-right-color 0.1s linear 0.05s,
-      border-bottom-color 0.1s linear 0.1s;
-  }
-
-  &::after {
-    border: 0 solid transparent; // Makes border thinner at the edges? I forgot what I was doing
-  }
-
-  &:hover::after {
-    border-top: 2px solid $border-color; // Shows border
-    border-left-width: 2px; // Solid edges, invisible borders
-    border-right-width: 2px; // Solid edges, invisible borders
-    transform: rotate(270deg); // Rotate around circle
-    transition:
-      transform 0.2s linear 0s,
-      border-left-width 0s linear 0.15s; // Solid edge post-rotation
-  }
-  &_prev {
-    opacity: 0.5;
-  }
-  &_selected::after {
-    border: 2px solid black;
+	&_selected::after {
+		border: 2px solid black;
+	}
+    
   }
 }
 
@@ -98,6 +104,8 @@ $x5: calc($x1 * 125 / 60);
   .item, .circle-border {
       width: 30px;
       height: 30px;
+      font-size: 20px;
+      padding: 18px;
   }
 
   .item {
@@ -110,6 +118,7 @@ $x5: calc($x1 * 125 / 60);
       display: flex;
       justify-content: center;
       align-items: center;
+      letter-spacing: -0.05em;
     }
     &_selected {
       color: white !important;

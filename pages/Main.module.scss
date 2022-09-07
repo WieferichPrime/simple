@@ -1,0 +1,23 @@
+@import '/styles/vars';
+
+.modal__btn {
+    background-color: $main_color;
+    border: none;
+    &:hover {
+        background-color: $main_color;
+        color: black;
+    }
+}
+
+.overlay {
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.5;
+    background-color: gray;
+}
+
+@media screen and (max-device-width: 480px){
+    .arrow {
+        transform: rotate(90deg);
+    }
+}

@@ -1,9 +1,29 @@
 .spinner {
+    margin-top: 50px;
     color: lightgrey;
 }
 
-@media screen and (max-device-width: 480px){
-    .arrow {
-        transform: rotate(-90deg);
+.time_plug {
+    padding: 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+    min-height: 41px;
+    border: 1px solid #f5f5f5;
+    box-shadow: -3px 3px #f5f5f5;
+    transition: 0.5s all;
+    user-select: none;
+    animation: jumping 2s infinite;
+}
+
+
+@keyframes jumping {
+    from {
+        box-shadow: -3px 3px #f5f5f5;
+    }
+    50% {
+        box-shadow: -9px 9px #f5f5f5;
+    }
+    to {
+        box-shadow: -3px 3px #f5f5f5;
     }
 }

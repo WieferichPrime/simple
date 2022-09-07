@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import connection from '../connection.js';
 //const sequelize = new Sequelize('test','postgres',"sdGf14km8joI!", { dialect: 'postgres'});
 

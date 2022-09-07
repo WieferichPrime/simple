@@ -5,13 +5,14 @@ import { useCallback } from 'react';
 
 interface Props {
     active: boolean;
-    date: Date|null;
+    date: string|null;
+	day: number|null;
 }
 
-const DateItem = ({active, date}:Props) => {
+const DateItem = ({active, date, day}:Props) => {
     const dispatch = useDispatch();
 	const selectedDate = useSelector((state:any) => state.date);
-	const datesEqual = !!(date && selectedDate && (date.toDateString() === selectedDate.toDateString()));
+	const datesEqual = !!(date && selectedDate && (date === selectedDate));
     const handler = useCallback((datesEqual: boolean) => {
 		if (!datesEqual) {
 			dispatch(changeDate(date));
@@ -28,11 +29,12 @@ const DateItem = ({active, date}:Props) => {
         <div className={`${st.circle_border}`}>
         	<div 
 			className={styles.join(' ')} 
-			onClick={() => {
+			onClick={(e) => {
+				e.stopPropagation();
 				if (active) {
 				handler(datesEqual);
 			}}}>
-				<span className={`${st.item_text}`}>{date?date.getDate() : ''}</span>
+				<span className={`${st.item_text}`}>{day?day : ''}</span>
 			</div>
         </div>
     )

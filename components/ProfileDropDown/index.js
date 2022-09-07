@@ -2,7 +2,6 @@ export default function({login}) {
     return (
         <div className="dropdown">
             <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"/>
                 <strong>{login}</strong>
             </a>
             <ul className="dropdown-menu text-small shadow">

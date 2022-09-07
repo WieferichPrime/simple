@@ -11,8 +11,9 @@ const TimeItem = ({time}:Props) => {
     const dispatch = useDispatch();
     const selectedTime = useSelector((state:any) => state.time);
     const timeEqual = !!(time && selectedTime && (time === selectedTime));
-    const handler = useCallback((timeEqual: boolean) => {
+    const handler = useCallback((timeEqual: boolean, time: string) => {
         if (!timeEqual)
+            console.log(time)
             dispatch(changeTime(time));
     }, []);
 
@@ -21,7 +22,7 @@ const TimeItem = ({time}:Props) => {
     
     return (
         <div 
-        onClick={() => handler(timeEqual)} 
+        onClick={() => handler(timeEqual, time)} 
         className={styles}>
             {time}
         </div>

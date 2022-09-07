@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 export default new Sequelize(
     'test',
     'postgres',
-    "root",
+    "sdGf14km8joI!",
     {
         dialect: "postgres",
         host: "localhost",

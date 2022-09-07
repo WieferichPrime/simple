@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.head {
+    margin-bottom: 25px;
+}
+
 .body {
     background-color: none;
 }
@@ -36,8 +40,12 @@
 }
 
 @media screen and (max-device-width: 480px) {
+    .arrow {
+        display: none;
+    }
+
     .table_label {
-        font-size: 14px;
+        font-size: 20px;
     }
     .arrow {
         color: black;
